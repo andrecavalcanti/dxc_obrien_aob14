@@ -1,0 +1,27 @@
+{
+  "id": "89c9fff7-bb17-4125-a4f3-57da0fee90be",
+  "name": "DXC Commision Enhancement",
+  "publisher": "DXC",
+  "brief": "",
+  "description": "",
+  "version": "1.0.0.0",
+  "compatibilityId": "1.0.0.0",
+  "privacyStatement": "",
+  "EULA": "",
+  "help": "",
+  "url": "",
+  "logo": "",
+  "capabilities": [],
+  "dependencies": [],
+  "screenshots": [],
+  "platform": "11.0.0.0",
+  "application": "11.0.0.0",
+  "idRange": {
+    "from": 50000,
+    "to": 50149
+  },
+
+"showMyCode": true,
+"breakonerror" : true,
+"runtime": "1.0"
+}
