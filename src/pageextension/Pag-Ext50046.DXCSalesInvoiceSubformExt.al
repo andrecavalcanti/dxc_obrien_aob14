@@ -6,9 +6,7 @@ pageextension 50046 "DXCSalesInvoiceSubformExt" extends "Sales Invoice Subform"
         {
             field("Commission Rate";"Commission Rate")
             {
-                Editable = ESACC_F50040_Editable;
-                HideValue = ESACC_F50040_HideValue;
-                Visible = ESACC_F50040_Visible;
+                
             }
         }
     }

@@ -1,4 +1,4 @@
-pageextension 50044 "DXCPostedSalesInvoiceSubformExt" extends "Posted Sales Invoice Subform" 
+pageextension 50044 "DXCPostedSalesInvSubformExt" extends "Posted Sales Invoice Subform" 
 {   
 
     layout
