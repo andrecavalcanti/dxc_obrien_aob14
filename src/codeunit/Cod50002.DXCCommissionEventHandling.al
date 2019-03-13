@@ -19,5 +19,5 @@ codeunit 50002 "DXCCommissionEventHandling"
             Rec."Fixed Commission Rate" := true;
         //<< AOB-14       
 
-    end;
+    end;    
 }
