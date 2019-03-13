@@ -6,11 +6,18 @@ codeunit 50002 "DXCCommissionEventHandling"
 
     var       
         CommissionRecipient : Record "Commission Recipient";
+        SalesRecSetup : Record "Sales & Receivables Setup";
     begin
 
         CommissionRecipient.GET(Rec."Commission Recipient No.");
 
-        Rec."Commission Group Code" := CommissionRecipient."Commission Group Code";        
+        Rec."Commission Group Code" := CommissionRecipient."Commission Group Code"; 
+
+        //<< AOB-14 
+        SalesRecSetup.GET;
+        if SalesRecSetup."Def. Sales Line Comm. to Fixed" then
+            Rec."Fixed Commission Rate" := true;
+        //<< AOB-14       
 
     end;
 }
