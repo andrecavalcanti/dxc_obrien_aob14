@@ -9,13 +9,13 @@ tableextension 50025 "DXCSalesHeaderExt" extends "Sales Header"
             trigger OnValidate();
             begin
                 //SPR02
-                UpdateCommisionRates;
+                DXCUpdateCommisionRates;
             end;
         }
     }      
 
     
-    local procedure UpdateCommisionRates();  
+    procedure DXCUpdateCommisionRates();  
         var
             SalesLine : Record "Sales Line";               
     begin
