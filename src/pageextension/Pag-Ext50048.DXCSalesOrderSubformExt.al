@@ -7,7 +7,7 @@ pageextension 50048 "DXCSalesOrderSubformExt" extends "Sales Order Subform"
         {
             field("Commission Rate";"Commission Rate")
             {
-               
+               Visible = false;
             }
         }
     }

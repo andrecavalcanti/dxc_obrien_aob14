@@ -9,7 +9,7 @@ tableextension 50025 "DXCSalesHeaderExt" extends "Sales Header"
             trigger OnValidate();
             begin
                 //SPR02
-                DXCUpdateCommisionRates;
+                // M DXCUpdateCommisionRates;
             end;
         }
     }      
@@ -17,18 +17,18 @@ tableextension 50025 "DXCSalesHeaderExt" extends "Sales Header"
     
     procedure DXCUpdateCommisionRates();  
         var
-            SalesLine : Record "Sales Line";               
+            SalesLine : Record "Sales Line";   
+            SalesLineCommissionRate : Record "Sales Line Commission Rate";            
     begin
-        SalesLine.RESET;
-        SalesLine.SETRANGE("Document Type","Document Type");
-        SalesLine.SETRANGE("Document No.","No.");
-        SalesLine.SETFILTER(Type,'%1|%2',SalesLine.Type::Item,SalesLine.Type::Resource);
-        if SalesLine.FINDSET then
+        SalesLineCommissionRate.RESET;
+        SalesLineCommissionRate.SETRANGE("Source Type",Database::"Sales Line");
+        SalesLineCommissionRate.SETRANGE("Source Subtype",SalesLineCommissionRate."Source Subtype"::"1");
+        SalesLineCommissionRate.SETRANGE("Source ID",Rec."No.");        
+        if SalesLineCommissionRate.FINDSET then
         repeat
-            SalesLine.VALIDATE("Commission Rate","Commission Rate");
-            SalesLine.MODIFY;
-
-        until SalesLine.NEXT = 0;
+            SalesLineCommissionRate.VALIDATE(Commission,Rec."Commission Rate");
+            SalesLineCommissionRate.MODIFY;
+        until SalesLineCommissionRate.NEXT = 0;
     end;
 
 
