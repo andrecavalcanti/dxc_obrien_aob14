@@ -15,8 +15,9 @@ pageextension 50049 "DXCSalesOrderExt" extends "Sales Order"
     {
         addafter("Take over Measurements")
         {
-            action("Set Commission Rates")
+            action("DXC Set Commission Rates")
             {
+                Caption = 'Set Commission Rates';
                 Image = UpdateDescription;
                 trigger OnAction();
                 begin
