@@ -19,10 +19,10 @@ pageextension 50049 "DXCSalesOrderExt" extends "Sales Order"
             {
                 Caption = 'Set Commission Rates';
                 Image = UpdateDescription;
-                trigger OnAction();
-                begin
-                    DXCUpdateCommisionRates;
-                end;
+                // trigger OnAction();
+                // begin
+                //     DXCUpdateCommisionRates;
+                // end;
             }
 
         }

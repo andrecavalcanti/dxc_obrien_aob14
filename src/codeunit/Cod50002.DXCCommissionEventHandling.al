@@ -1,25 +1,5 @@
 codeunit 50002 "DXCCommissionEventHandling"
-{
-    [EventSubscriber(ObjectType::Table, 5172120, 'OnBeforeInsertEvent', '', false, false)]
-
-    local procedure HandleBeforInsertOnSalesLineCommRate(var Rec : Record "Sales Line Commission Rate"; RunTrigger : Boolean);
-
-    var       
-        CommissionRecipient : Record "Commission Recipient";
-        SalesRecSetup : Record "Sales & Receivables Setup";
-    begin
-
-        CommissionRecipient.GET(Rec."Commission Recipient No.");
-
-        Rec."Commission Group Code" := CommissionRecipient."Commission Group Code"; 
-
-        //<< AOB-14 
-        SalesRecSetup.GET;
-        if SalesRecSetup."Def. Sales Line Comm. to Fixed" then
-            Rec."Fixed Commission Rate" := true;
-        //<< AOB-14       
-
-    end;     
+{   
 
     [EventSubscriber(ObjectType::Page, 42, 'OnBeforeActionEvent', 'DXC Set Commission Rates', false, false)]
     local procedure HandleAfterActionOnDXCSetCommRatesOnSalesOrder(var Rec : Record "Sales Header")
@@ -42,6 +22,29 @@ codeunit 50002 "DXCCommissionEventHandling"
           repeat
             CommMgt.CreateSalesLineCommissionRates(SalesLine);
           until SalesLine.NEXT = 0;
+    end;
+
+    [EventSubscriber(ObjectType::Codeunit, 5172102, 'OnAfterCreateSalesLineCommissionRates', '', false, false)]
+    local procedure HandleAfterCreateSalesLineCommissionRatesOnCommissionMgt(var SalesLineCommissionRate : Record "Sales Line Commission Rate");
+    var
+        SalesHeader : Record "Sales Header";
+        CommissionRecipient : Record "Commission Recipient";
+        SalesRecSetup : Record "Sales & Receivables Setup";
+    begin
+        if SalesHeader.GET(SalesLineCommissionRate."Source Subtype",SalesLineCommissionRate."Source ID") then begin
+        
+            SalesRecSetup.GET;
+
+            CommissionRecipient.GET(SalesLineCommissionRate."Commission Recipient No.");        
+            
+            if SalesRecSetup."Def. Sales Line Comm. to Fixed" then
+                SalesLineCommissionRate."Fixed Commission Rate" := true;
+
+            SalesLineCommissionRate."Commission Group Code" := CommissionRecipient."Commission Group Code"; 
+            
+            SalesLineCommissionRate.Commission := SalesHeader."Commission Rate";
+
+        end;
     end;
 
     
